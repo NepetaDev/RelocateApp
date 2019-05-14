@@ -4,10 +4,12 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {
     _window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    NSBundle *prefBundle = [NSBundle bundleWithPath:@"/Library/PreferenceBundles/RelocatePrefs.bundle"];
-    [prefBundle load];
-    if ([prefBundle isLoaded]) {
-        _rootViewController = [[UINavigationController alloc] initWithRootViewController:[[NSClassFromString(@"RLCPrefsListController") alloc] init]];
+
+    /* Just replace the path to your pref bundle and you should be ok. */
+    NSBundle *bundle = [NSBundle bundleWithPath:@"/Library/PreferenceBundles/RelocatePrefs.bundle"];
+    [bundle load];
+    if ([bundle isLoaded]) {
+        _rootViewController = [[UINavigationController alloc] initWithRootViewController:[bundle.principalClass new]];
     } else {
         UIViewController *blank = [[UIViewController alloc] init];
         [[_rootViewController view] setBackgroundColor:[UIColor whiteColor]];
